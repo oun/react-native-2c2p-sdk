@@ -7,7 +7,8 @@
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-my2c2p-sdk`
+1. `$ react-native link react-native-my2c2p-sdk`
+2. Add `pod 'my2c2pSDK'` to the ios/Podfile and run `pod install`
 
 ### Manual installation
 

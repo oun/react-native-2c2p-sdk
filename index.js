@@ -1,11 +1,11 @@
-var sdk = require('react-native').NativeModules.RNMy2c2pSdk;
+var RNMy2c2pSdk = require('react-native').NativeModules.RNMy2c2pSdk;
 
-function ReactNative2c2pSDK(privateKey) {
-  this.privateKey = privateKey;
-}
+module.exports = {
+  init: function(privateKey) {
+    RNMy2c2pSdk.setup(privateKey);
+  },
 
-ReactNative2c2pSDK.prototype.requestPayment = function(paymentDetails) {
-  sdk.requestPayment(paymentDetails, this.privateKey);
+  requestPayment: function(paymentDetails) {
+    return RNMy2c2pSdk.requestPayment(paymentDetails);
+  }
 };
-
-module.exports = ReactNative2c2pSDK;

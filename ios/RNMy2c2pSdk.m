@@ -10,12 +10,15 @@
 }
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)details privateKey: (NSString *)privateKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-{
-    RCTLogInfo(@"payment %@", details);
-
+RCT_EXPORT_METHOD(setup: (NSString *)privateKey) {
     _my2c2pSDK = [[my2c2pSDK alloc] initWithPrivateKey:privateKey];
     _my2c2pSDK.version = 9.0;
+}
+
+RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)details resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"Request payment: %@", details);
+
     _my2c2pSDK.merchantID = details[@"merchantID"];
     _my2c2pSDK.uniqueTransactionCode = details[@"uniqueTransactionCode"];
     _my2c2pSDK.desc = details[@"desc"];
