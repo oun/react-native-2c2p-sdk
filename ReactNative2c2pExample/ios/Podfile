@@ -1,0 +1,29 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ReactNative2c2pExample' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for ReactNative2c2pExample
+  pod 'my2c2pSDK'
+
+  target 'ReactNative2c2pExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'ReactNative2c2pExample-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for ReactNative2c2pExample-tvOS
+
+  target 'ReactNative2c2pExample-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

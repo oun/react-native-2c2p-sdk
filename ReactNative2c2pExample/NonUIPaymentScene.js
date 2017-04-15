@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import My2c2pSDK from 'react-native-my2c2p-sdk';
 import config from './config.json';
 
@@ -11,7 +11,7 @@ export default class NonUIPaymentScene extends Component {
   handlePayment = async () => {
     const details = {
       merchantID: '614',
-      uniqueTransactionCode: '123456705',
+      uniqueTransactionCode: '123456706',
       desc: 'test product 1',
       amount: 1299.0,
       currencyCode: '702',
@@ -34,7 +34,7 @@ export default class NonUIPaymentScene extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <TouchableOpacity onPress={this.handlePayment}>
           <Text>Begin Payment</Text>
         </TouchableOpacity>
@@ -42,3 +42,12 @@ export default class NonUIPaymentScene extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  }
+});

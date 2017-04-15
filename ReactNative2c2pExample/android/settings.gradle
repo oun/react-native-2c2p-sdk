@@ -1,0 +1,5 @@
+rootProject.name = 'ReactNative2c2pExample'
+include ':react-native-my2c2p-sdk'
+project(':react-native-my2c2p-sdk').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-my2c2p-sdk/android')
+
+include ':app'
