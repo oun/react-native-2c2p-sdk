@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oun/react-native-2c2psdk"
+    "url": "https://github.com/oun/react-native-2c2p-sdk"
   },
   "bugs": {
-    "url": "https://github.com/oun/react-native-2c2psdk/issues"
+    "url": "https://github.com/oun/react-native-2c2p-sdk/issues"
   },
-  "homepage": "https://github.com/oun/react-native-2c2psdk#readme"
+  "homepage": "https://github.com/oun/react-native-2c2p-sdk#readme"
 }
