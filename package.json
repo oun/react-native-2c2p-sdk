@@ -1,0 +1,23 @@
+
+{
+  "name": "react-native-my2c2p-sdk",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "react-native", "2c2p"
+  ],
+  "author": "Worawat Wijarn",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oun/react-native-2c2psdk"
+  },
+  "bugs": {
+    "url": "https://github.com/oun/react-native-2c2psdk/issues"
+  },
+  "homepage": "https://github.com/oun/react-native-2c2psdk#readme"
+}
