@@ -73,19 +73,19 @@ RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)details resolver:(RCTPromiseRe
 
     _my2c2pSDK.paymentUI = NO;
 
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
 
     // Determine what controller is in the front based on if the app has a navigation controller or a tab bar controller
     UIViewController* showingController;
-    if([delegate.window.rootViewController isKindOfClass:[UINavigationController class]]){
+    if([window.rootViewController isKindOfClass:[UINavigationController class]]){
 
-        showingController = ((UINavigationController*)delegate.window.rootViewController).visibleViewController;
-    } else if ([delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+        showingController = ((UINavigationController*)window.rootViewController).visibleViewController;
+    } else if ([window.rootViewController isKindOfClass:[UITabBarController class]]) {
 
-        showingController = ((UITabBarController*)delegate.window.rootViewController).selectedViewController;
+        showingController = ((UITabBarController*)window.rootViewController).selectedViewController;
     } else {
 
-        showingController = (UIViewController*)delegate.window.rootViewController;
+        showingController = (UIViewController*)window.rootViewController;
     }
     _my2c2pSDK.delegate = showingController;
 
