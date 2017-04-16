@@ -11,18 +11,6 @@ import {
   Text,
   View
 } from 'react-native';
-import NonUIPaymentScene from './NonUIPaymentScene';
+import App from './App';
 
-export default class ReactNative2c2pExample extends Component {
-  render() {
-    return (
-      <View>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-});
-
-AppRegistry.registerComponent('ReactNative2c2pExample', () => NonUIPaymentScene);
+AppRegistry.registerComponent('ReactNative2c2pExample', () => App);
