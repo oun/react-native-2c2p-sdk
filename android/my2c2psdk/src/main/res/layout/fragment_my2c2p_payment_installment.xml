@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:background="@color/my2c2psdk_white"
+       android:fillViewport="true" >
+	<LinearLayout 
+	    android:id="@+id/ll_root"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	    
+	    	<include
+                android:id="@+id/ll_topBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_my2c2p_payment_top_bar"  />
+	    	
+	    	<LinearLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dip"
+			    android:layout_marginRight="10dip"
+			    android:orientation="vertical" >
+			    
+	    	    <include
+	                android:id="@+id/ll_installement_cardDetails"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dip"
+	                android:layout_marginRight="10dip"
+	                layout="@layout/layout_my2c2p_payment_installment_card_details"
+	                android:visibility="gone" />
+	    	    
+	    	    <include
+	                android:id="@+id/ll_installement_storeCardDetails"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dip"
+	                android:layout_marginRight="10dip"
+	                layout="@layout/layout_my2c2p_payment_installment_store_card" />
+			    
+			     <Button
+	                android:id="@+id/btn_submit"
+	                style="@style/My2c2pSDK.Widget.Button.Grey"
+	                android:layout_marginBottom="20dip"
+	                android:layout_marginLeft="15dip"
+	                android:layout_marginRight="15dip"
+	                android:layout_marginTop="15dip"
+	                android:text="@string/my2c2pSDK_confirm" >
+	            </Button>				    
+       		</LinearLayout>
+    </LinearLayout>
+</ScrollView>

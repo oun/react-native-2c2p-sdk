@@ -35,6 +35,7 @@ export default class NonUIPaymentScreen extends Component {
     const { navigate } = this.props.navigation;
     try {
       const response = await My2c2pSDK.requestPayment(this.form.getValue());
+      console.log(response);
       navigate('PaymentResult', { result: response });
     } catch(error) {
       console.log(error);

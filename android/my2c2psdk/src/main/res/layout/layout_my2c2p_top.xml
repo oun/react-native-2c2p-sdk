@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout
+        android:id="@+id/rl_nav_root"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@drawable/my3dsdk_nav_bar"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" >
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/My2c2pSDK.Widget.Button.Navigation" />
+
+            <View
+                style="@style/My2c2pSDK.Separator"
+                android:layout_width="3dip"
+                android:layout_toRightOf="@+id/btn_cancel" />
+        </RelativeLayout>
+
+
+         <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="46dip"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:contentDescription="@string/my2c2pSDK_image_desc"
+            android:src="@drawable/logo" />
+        
+        <ProgressBar
+                android:id="@+id/pb_loading"
+                style="?android:attr/android:progressBarStyleInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="35dip"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+            />
+    </RelativeLayout>

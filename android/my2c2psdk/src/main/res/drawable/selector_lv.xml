@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+    <shape>
+        <solid android:color="@color/my2c2psdk_grey" />
+    </shape>
+</item>
+  <item android:state_pressed="true">
+    <shape>
+        <solid android:color="@color/my2c2psdk_grey" />
+    </shape>
+</item>
+<!--   <item android:state_selected="true" android:state_pressed="false"  >
+    <shape>
+        <solid android:color="@color/my2c2psdk_light_grey" />
+    </shape>
+</item> -->
+  <item >
+    <shape>
+        <solid android:color="@color/my2c2psdk_white" />
+    </shape>
+</item>
+</selector>

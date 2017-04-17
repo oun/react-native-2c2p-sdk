@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:background="@color/my2c2psdk_white"
+       android:fillViewport="true" >
+	<LinearLayout 
+	    android:id="@+id/ll_root"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+	    <include
+               android:id="@+id/ll_topBar"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               layout="@layout/layout_my2c2p_payment_top_bar"  />
+	    
+	    <LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="10dip"
+		    android:orientation="vertical" >
+		    
+		 	<TextView
+		        style="@style/My2c2pSDK.Widget.TextView.label" 
+		        android:text="@string/my2c2pSDK_bank_bank" />
+		 	
+		 	<EditText
+		        android:id="@+id/et_bank"
+		        android:hint="@string/my2c2pSDK_bank_hint_select_country"
+		        style="@style/My2c2pSDK.Widget.EditText.FormLabelDropdown" />
+		 
+		    <TextView
+		        style="@style/My2c2pSDK.Widget.TextView.label" 
+		        android:text="@string/my2c2pSDK_bank_payment_method" />
+		    
+		    <EditText
+		        android:id="@+id/et_payment_method"
+		        android:hint="@string/my2c2pSDK_bank_hint_select_payment_method"
+		        style="@style/My2c2pSDK.Widget.EditText.FormLabelDropdown" />
+		
+		    <TextView
+		        style="@style/My2c2pSDK.Widget.TextView.label"
+		        android:text="@string/my2c2pSDK_bank_username" />
+		    
+		    <EditText
+		        android:id="@+id/et_username"
+		        style="@style/My2c2pSDK.Widget.EditText"
+		        android:hint="@string/my2c2pSDK_hint_your_name" />
+		
+		    <TextView
+		        style="@style/My2c2pSDK.Widget.TextView.label" 
+		        android:text="@string/my2c2pSDK_bank_email" />
+		    
+		    <EditText
+		        android:id="@+id/et_email"
+		        style="@style/My2c2pSDK.Widget.EditText"
+		        android:hint="@string/my2c2pSDK_hint_email"
+		        android:inputType="textEmailAddress" />
+		    
+		    <TextView
+		        style="@style/My2c2pSDK.Widget.TextView.label" 
+		        android:text="@string/my2c2pSDK_bank_no" />
+		    
+		    <EditText
+		        android:id="@+id/et_mobile_no"
+		        style="@style/My2c2pSDK.Widget.EditText"
+		        android:hint="@string/my2c2pSDK_contact"
+		        android:inputType="number"
+		        android:maxLength="16" />
+		    
+		    <Button
+                android:id="@+id/btn_generate_slip"
+                style="@style/My2c2pSDK.Widget.Button.Grey"
+                android:layout_marginBottom="20dip"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginTop="15dip"
+                android:text="@string/my2c2pSDK_confirm" >
+            </Button>	
+        </LinearLayout>    
+    </LinearLayout>
+</ScrollView>
