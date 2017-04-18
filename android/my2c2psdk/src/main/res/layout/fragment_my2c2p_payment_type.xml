@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <include
+        android:id="@+id/ll_topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        layout="@layout/layout_my2c2p_payment_top_bar"  />
+	<ListView
+	    android:id="@+id/listview"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@color/my2c2psdk_white"
+	    android:clickable="true"
+	    android:fillViewport="true" 
+	    android:fadeScrollbars="false"
+      	android:layout_below="@+id/ll_topBar" /> 
+</RelativeLayout>

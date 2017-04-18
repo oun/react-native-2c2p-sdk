@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        layout="@layout/layout_my2c2p_top" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/my2c2psdk_white"
+        android:fillViewport="true" >
+         
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/ll_paymentDetails"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="vertical" >
+                
+                <!-- merchant details -->
+                
+                <RelativeLayout
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content" >
+        
+                    <TextView
+                        android:id="@+id/paying_to_title"
+	                    style="@style/My2c2pSDK.Widget.TextView.label"
+	                    android:layout_toLeftOf="@+id/iv_merchant_icon"
+	                    android:text="@string/my2c2pSDK_paying" />
+                    
+                    <TextView
+	                    android:id="@+id/tv_merchant_name"
+	                    style="@style/My2c2pSDK.Widget.TextView.text"
+	                    android:layout_below="@+id/paying_to_title" />
+                    
+					<!-- Product details -->
+
+	                <TextView
+	                    android:id="@+id/product_details_title"
+	                    style="@style/My2c2pSDK.Widget.TextView.label"
+	                    android:text="@string/my2c2pSDK_product_details"
+	                    android:layout_below="@+id/tv_merchant_name" />
+	 
+	                <TextView
+	                    android:id="@+id/tv_productDetails"
+	                    style="@style/My2c2pSDK.Widget.TextView.text"
+	                    android:layout_below="@+id/product_details_title" />
+                    
+                    <ImageView 
+                        android:id="@+id/iv_merchant_icon"
+                        android:layout_width="100dp"
+                		android:layout_height="100dp" 
+                		android:src="@drawable/logo" 
+                		android:layout_alignParentRight="true" 
+                		android:paddingLeft="10dp" 
+                		android:paddingTop="15dp" 
+                		android:paddingBottom="10dp"/>
+                    
+				</RelativeLayout>
+
+                <!-- Invoice No -->
+
+                <TextView
+                    style="@style/My2c2pSDK.Widget.TextView.label"
+                    android:text="@string/my2c2pSDK_invoice_number" />
+
+                <TextView
+                    android:id="@+id/tv_invoiceNo"
+                    style="@style/My2c2pSDK.Widget.TextView.text" />
+
+                <!-- Amount -->
+
+                <TextView
+                    style="@style/My2c2pSDK.Widget.TextView.label"
+                    android:text="@string/my2c2pSDK_amount" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    style="@style/My2c2pSDK.Widget.TextView.text" />               
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                
+                <View
+			        android:layout_width="wrap_content"
+			        android:layout_height="1dip"
+			        android:background="@drawable/line_seperator" />
+                
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/My2c2pSDK.Widget.TextView.text"
+                    android:paddingLeft="10dip"
+               	    android:paddingRight="10dip" />
+                
+                <TextView
+                    android:id="@+id/tv_contact_email"
+                    style="@style/My2c2pSDK.Widget.TextView.text"
+                    android:paddingLeft="10dip"
+                	android:paddingRight="10dip" />
+			</LinearLayout>
+           
+            <include
+                android:id="@+id/ll_paymentMethodDetails"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                layout="@layout/layout_my2c2p_payment_method" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

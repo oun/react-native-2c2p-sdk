@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/my2c2psdk_white"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label" 
+        android:text="@string/my2c2pSDK_credit_card_number" />
+ 
+    <com.ccpp.my2c2psdk.secure.ui.SecureEditText
+        android:id="@+id/et_cardNo"
+        style="@style/My2c2pSDK.Widget.EditText"
+        android:hint="@string/my2c2pSDK_hint_cc"
+        android:inputType="number"
+        android:maxLength="16" />
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label"
+        android:text="@string/my2c2pSDK_card_holder_name" />
+
+    <EditText
+        android:id="@+id/et_cardHolderName"
+        style="@style/My2c2pSDK.Widget.EditText"
+        android:hint="@string/my2c2pSDK_hint_your_name" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal" >
+ 
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="4.5"
+             android:layout_gravity="bottom"
+            android:text="@string/my2c2pSDK_expiry_date"
+            android:textStyle="bold"
+            android:textColor="@color/my2c2psdk_dark_grey" />
+        
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:paddingLeft="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my2c2pSDK_cvv2"
+                android:layout_gravity="bottom"
+                android:textStyle="bold"
+                android:textColor="@color/my2c2psdk_dark_grey" />
+            
+            <ImageButton
+                android:id="@+id/ib_info"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="5dip"
+                android:contentDescription="@string/my2c2pSDK_image_desc"
+                android:src="@drawable/info_selector" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.ccpp.my2c2psdk.secure.ui.SecureEditText
+            android:id="@+id/et_expiryDate"
+            style="@style/My2c2pSDK.Widget.EditText"
+            android:layout_width="0dip"
+            android:layout_weight="4.5"
+            android:hint="@string/my2c2pSDK_hint_expiry"
+            android:inputType="number"
+            android:maxLength="4" />
+
+        <com.ccpp.my2c2psdk.secure.ui.SecureEditText
+            android:id="@+id/et_cvv2"
+            style="@style/My2c2pSDK.Widget.EditText"
+            android:layout_width="0dip"
+            android:layout_weight="5.5"
+            android:inputType="numberPassword"
+            android:maxLength="4" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label"
+        android:text="@string/my2c2pSDK_bank_country" />
+
+     <EditText
+        android:id="@+id/et_bankCountry"
+        style="@style/My2c2pSDK.Widget.EditText.FormLabelDropdown"
+         />
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label"
+        android:text="@string/my2c2pSDK_bank_name" />
+
+    <EditText
+        android:id="@+id/et_bankName"
+        style="@style/My2c2pSDK.Widget.EditText"
+        android:hint="@string/my2c2pSDK_hint_bank_name" />
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label"
+        android:text="@string/my2c2pSDK_email" />
+
+    <EditText
+        android:id="@+id/et_email"
+        style="@style/My2c2pSDK.Widget.EditText"
+        android:hint="@string/my2c2pSDK_hint_email_optional"
+        android:inputType="textEmailAddress" />
+
+    <RelativeLayout
+        android:id="@+id/ll_storeCard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip" >
+
+        <CheckBox
+            android:id="@+id/cb_storeCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:checked="false"
+            android:contentDescription="@string/my2c2pSDK_store_card"
+            android:text="@string/my2c2pSDK_store_card"
+            android:textStyle="bold"
+            android:textColor="@color/my2c2psdk_dark_grey" >
+        </CheckBox>
+    </RelativeLayout>
+
+</LinearLayout>

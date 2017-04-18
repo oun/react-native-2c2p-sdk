@@ -5,13 +5,34 @@ module.exports = {
     RNMy2c2pSdk.setup(privateKey, production);
   },
 
-  requestPaymentUI: function(params) {
-    var payment = Object.assign({}, params, { paymentUI: true });
+  requestPayment: function(params) {
+    var payment = Object.assign({}, defaultPaymentRequest, params);
     return RNMy2c2pSdk.requestPayment(payment);
   },
 
-  requestPayment: function(params) {
-    var payment = Object.assign({}, params, { paymentUI: false });
-    return RNMy2c2pSdk.requestPayment(payment);
+  requestRecurringPayment: function(params) {
+    var payment = Object.assign({}, defaultPaymentRequest, params);
+    return RNMy2c2pSdk.requestRecurringPayment(payment);
+  },
+
+  requestInstallmentPayment: function(params) {
+    var payment = Object.assign({}, defaultPaymentRequest, params);
+    return RNMy2c2pSdk.requestInstallmentPayment(payment);
+  },
+
+  requestAlternativePayment: function(params) {
+    var payment = Object.assign({}, defaultPaymentRequest, params);
+    return RNMy2c2pSdk.requestAlternativePayment(payment);
+  },
+
+  requestPaymentChannel: function(params) {
+    var payment = Object.assign({}, defaultPaymentRequest, params);
+    return RNMy2c2pSdk.requestPaymentChannel(payment);
   }
+};
+
+const defaultPaymentRequest = {
+  request3DS: false,
+  paymentUI: false,
+  storeCard: false
 };

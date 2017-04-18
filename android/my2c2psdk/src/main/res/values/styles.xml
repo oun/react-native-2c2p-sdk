@@ -1,0 +1,146 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="My2c2pSDK"></style>
+
+    <style name="My2c2pSDK.Widget.Button.Navigation" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginBottom">1dip</item>
+        <item name="android:background">@drawable/my2c2psdk_nav_btn</item>
+        <item name="android:drawablePadding">0dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/my2c2pSDK_btn_cancel</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dip</item>
+    </style>
+   
+	 <style name="My2c2pSDK.Widget.EditText.FormLabelDropdown" >
+        <item name="android:clickable">true</item>
+        <item name="android:layout_marginLeft">3dip</item>
+        <item name="android:layout_marginRight">3dip</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:background">@drawable/btn_dropdown</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:minHeight">35dip</item>
+        <item name="android:focusable">false</item>
+        <item name="android:hint">@string/my2c2pSDK_hint_select_country</item>
+    </style>      
+    
+    <style name="My2c2pSDK.Separator">
+        <item name="android:layout_width">2dip</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/separator</item>
+    </style>
+
+    <style name="My2c2pSDK.Theme" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:drawable/screen_background_dark_transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+       <!--  <item name="android:windowIsFloating">true</item> -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    
+
+    <style name="My2c2pSDK.Widget.TextView" parent="android:Widget.TextView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+    </style>
+
+    <style name="My2c2pSDK.Widget.TextView.country" parent="android:Widget.TextView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:paddingRight">10dip</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="My2c2pSDK.Widget.TextView.title">
+         <item name="android:textColor">@color/my2c2psdk_blue_dark</item>
+         <item name="android:background">@drawable/border_bottom</item>
+         <item name="android:paddingLeft">13dip</item>
+         <item name="android:textSize">18sp</item>
+         <item name="android:layout_marginTop">5dip</item>
+         <item name="android:textStyle">bold</item>
+    </style>        
+    <style name="My2c2pSDK.Widget.TextView.label">
+         <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+         <item name="android:layout_marginTop">10dip</item>
+         <item name="android:layout_marginLeft">8dip</item>
+         <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="My2c2pSDK.Widget.TextView.label.left">
+         <item name="android:layout_width">0dip</item>
+         <item name="android:layout_weight">4</item>
+         <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="My2c2pSDK.Widget.TextView.label.right">
+         <item name="android:layout_width">0dip</item>
+         <item name="android:layout_weight">6</item>
+         <item name="android:layout_height">wrap_content</item>
+         <item name="android:textStyle">normal</item>
+         <item name="android:textColor">@color/my2c2psdk_dark_grey</item>   
+    </style>
+    <style name="My2c2pSDK.Widget.TextView.text">
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:minHeight">27dip</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+    </style>
+
+    <style name="My2c2pSDK.Widget.EditText" parent="android:Widget.EditText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">40dip</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:background">@drawable/edit_text</item>
+    </style>
+
+    <style name="My2c2pSDK.Widget.Button" parent="android:Widget.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">38dip</item>
+        <item name="android:background">@drawable/my2c2psdk_nav_btn</item>
+    </style>
+
+  
+    <style name="My2c2pSDK.Widget.Button.Grey" parent="My2c2pSDK.Widget.Button">       
+        <item name="android:background">@drawable/btn_grey</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/my2c2psdk_dark_grey</item>
+        <item name="android:minHeight">30dip</item>
+    </style>
+    
+    <!-- V3-UI -->
+    <style name="My2c2pSDK.Widget.Button.PaymentType.Navigation" parent="android:Widget.Button">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginBottom">1dip</item>
+        <item name="android:drawablePadding">0dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/my2c2psdk_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dip</item>
+    </style> 
+    <style name="My2c2pSDK.Widget.TextView.PaymentType.Navigation" parent="android:Widget.TextView">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:drawablePadding">0dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/my2c2psdk_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dip</item>
+    </style> 
+</resources>

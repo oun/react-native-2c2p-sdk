@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/my2c2psdk_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_nav_root"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/my3dsdk_nav_bar"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" >
+
+            <Button
+                android:id="@+id/btn_close"
+                style="@style/My2c2pSDK.Widget.Button.Navigation"
+                android:text="@string/my2c2pSDK_close" />
+
+            <View
+                style="@style/My2c2pSDK.Separator"
+                android:layout_width="3dip"
+                android:layout_toRightOf="@+id/btn_close" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/my2c2pSDK_info"
+            android:textColor="@color/my2c2psdk_dark_grey"
+            android:textSize="20dip"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <!-- Title -->
+
+            <TextView
+                style="@style/My2c2pSDK.Widget.TextView.title"
+                android:background="@null"
+                android:text="@string/my2c2pSDK_cvv_title"
+                android:paddingLeft="10dip" />
+
+             <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="5dip"
+                    android:contentDescription="@string/my2c2pSDK_image_desc"
+                    android:src="@drawable/cardfront" />
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_margin="5dip"
+                     android:scaleType="fitCenter"
+                    android:contentDescription="@string/my2c2pSDK_image_desc"
+                    android:src="@drawable/cardback" />
+            </LinearLayout>
+            
+            <TextView
+                style="@style/My2c2pSDK.Widget.TextView"
+                android:layout_marginTop="5dip"
+                android:padding="10dip"
+                android:text="@string/my2c2pSDK_cvv_content" />
+
+           
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/my2c2psdk_white"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/My2c2pSDK.Widget.TextView.label"
+        android:text="@string/my2c2pSDK_credit_card_number" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tv_maskedCardNo"
+            style="@style/My2c2pSDK.Widget.TextView.text"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_changeCard" />
+
+        <Button
+            android:id="@+id/btn_changeCard"
+            style="@style/My2c2pSDK.Widget.Button.Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:text="@string/my2c2pSDK_change_card_number"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal">
+
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/my2c2pSDK_cvv2"
+           android:layout_gravity="bottom"
+           android:textStyle="bold"
+           android:textColor="@color/my2c2psdk_dark_grey" />
+            
+        <ImageButton
+           android:id="@+id/ib_info2"
+           android:layout_width="20dip"
+           android:layout_height="20dip"
+           android:background="@null"
+           android:scaleType="fitCenter"
+           android:layout_marginLeft="5dip"
+           android:contentDescription="@string/my2c2pSDK_image_desc"
+           android:src="@drawable/info_selector" />
+    </LinearLayout>
+
+    <com.ccpp.my2c2psdk.secure.ui.SecureEditText
+            android:id="@+id/et_cvv"
+            style="@style/My2c2pSDK.Widget.EditText"
+            android:inputType="numberPassword"
+            android:maxLength="4" />
+    
+    <LinearLayout
+        android:id="@+id/ll_storeCardEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        
+        <TextView
+			style="@style/My2c2pSDK.Widget.TextView.label"
+			android:text="@string/my2c2pSDK_email" />
+        
+        <EditText
+	        android:id="@+id/et_storedCardEmail"
+	        style="@style/My2c2pSDK.Widget.EditText"
+	        android:hint="@string/my2c2pSDK_hint_email_optional"
+	        android:inputType="textEmailAddress" />
+     </LinearLayout>
+</LinearLayout>

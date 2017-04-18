@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <color name="my2c2psdk_light_grey">#808080</color> -->
+    <!--   mpay
+	<color name="my2c2psdk_red">#CF0D14</color>
+	<color name="my2c2psdk_red_tinted">#cf1114</color>
+	<color name="my2c2psdk_red_pressed">#a10000</color>	-->
+	
+	<color name="my2c2psdk_blue_dark">#0c97c9</color>
+	<color name="my2c2psdk_black">#6e6e6e</color>
+    <color name="my2c2psdk_dark_grey">#6e6e6e</color>
+    <color name="my2c2psdk_grey">#c3c7c9</color>   
+    <color name="my2c2psdk_white">#FFFFFF</color>
+    <color name="my2c2psdk_blue_light">#3B96CD</color>
+    
+    <color name="my2c2psdk_translucent_black">#80000000</color>
+    <color name="my2c2psdk_base">#F8F8FF</color>
+</resources>
