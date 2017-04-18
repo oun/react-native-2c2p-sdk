@@ -111,4 +111,8 @@ try {
 }
 ```
 
-See example app for more details.
+See example app for more details. 
+
+## Example
+
+To run the example app, set your private key, merchant ID and secret key in src/config.json.
