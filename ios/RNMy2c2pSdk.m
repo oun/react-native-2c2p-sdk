@@ -11,71 +11,161 @@
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(setup: (NSString *)privateKey production: (BOOL)productionMode) {
-    RCTLogInfo(@"Initialize with params: production=%@", productionMode);
+    RCTLogInfo(@"Initialize with params: production=%d", productionMode);
     _my2c2pSDK = [[my2c2pSDK alloc] initWithPrivateKey:privateKey];
     _my2c2pSDK.version = 9.0;
     _my2c2pSDK.productionMode = productionMode;
 }
 
-RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)details resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    RCTLogInfo(@"Request payment: %@", details);
+    RCTLogInfo(@"Request payment params: %@", params);
 
-    _my2c2pSDK.merchantID = details[@"merchantID"];
-    _my2c2pSDK.secretKey = details[@"secretKey"];
-    _my2c2pSDK.uniqueTransactionCode = details[@"uniqueTransactionCode"];
-    _my2c2pSDK.desc = details[@"desc"];
-    _my2c2pSDK.amount = [details[@"amount"] doubleValue];
-    _my2c2pSDK.currencyCode = details[@"currencyCode"];
-    _my2c2pSDK.cardHolderName = details[@"cardHolderName"];
-    _my2c2pSDK.cardHolderEmail = details[@"cardHolderEmail"];
-    _my2c2pSDK.storeCardUniqueID = details[@"storeCardUniqueID"];
-    _my2c2pSDK.pan = details[@"pan"];
-    _my2c2pSDK.cardExpireMonth = [details[@"cardExpireMonth"] integerValue];
-    _my2c2pSDK.cardExpireYear = [details[@"cardExpireYear"] integerValue];
-    _my2c2pSDK.securityCode = details[@"securityCode"];
-    _my2c2pSDK.panCountry = details[@"panCountry"];
-    _my2c2pSDK.panBank = details[@"panBank"];
-    _my2c2pSDK.request3DS = details[@"request3DS"];
-    //  _my2c2pSDK.hashKey = self.hashKey.text;
-    _my2c2pSDK.paymentChannel = details[@"paymentChannel"];
-    //  _my2c2pSDK.paymentOption = _paymentOptions[self.paymentOption.selectedSegmentIndex];
-    _my2c2pSDK.statementDescriptor = details[@"statementDescriptor"];
-    [self nilSafeSetPropertyValue: details[@"promotion"] forKey: @"promotion"];
+    [self setMandatoryFields: params];
+    [self setCardInfoFields: params];
+    [self setOptionalFields: params];
 
-    // 123
-    _my2c2pSDK.agentCode = details[@"agentCode"];
-    _my2c2pSDK.channelCode = details[@"channelCode"];
-    _my2c2pSDK.paymentExpiry = details[@"paymentExpiry"];
-    _my2c2pSDK.mobileNo = details[@"mobileNo"];
+    [self sendRequestWithResolver: resolve rejecter: reject];
+}
 
-    _my2c2pSDK.payCategoryID = details[@"payCategoryID"];
-    _my2c2pSDK.userDefined1 = details[@"userDefined1"];
-    _my2c2pSDK.userDefined2 = details[@"userDefined2"];
-    _my2c2pSDK.userDefined3 = details[@"userDefined3"];
-    _my2c2pSDK.userDefined4 = details[@"userDefined4"];
-    _my2c2pSDK.userDefined5 = details[@"userDefined5"];
+RCT_EXPORT_METHOD(requestRecurringPayment: (NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"Request recurring payment params: %@", params);
 
-    [self nilSafeSetBoolPropertyValue: details[@"enableStoreCard"] forKey: @"enableStoreCard"];
+    [self setMandatoryFields: params];
+    [self setCardInfoFields: params];
+    [self setRecurringFields: params];
+    [self setOptionalFields: params];
 
-    //For Allow Payment and non Payment
-    [self nilSafeSetBoolPropertyValue: details[@"storeCard"] forKey: @"storeCard"];
-    //  _my2c2pSDK.recurring = self.recurringPayment.on;
-    //  _my2c2pSDK.recurringAmount = [self.recurringAmount.text doubleValue];
-    //  _my2c2pSDK.recurringCount = [self.recurringCount.text intValue];
-    //  _my2c2pSDK.recurringInterval = [self.recurringInterval.text intValue];
-    //  _my2c2pSDK.invoicePrefix = self.invoicePrefix.text;
+    [self sendRequestWithResolver: resolve rejecter: reject];
+}
 
+RCT_EXPORT_METHOD(requestInstallmentPayment: (NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"Request installment payment params: %@", params);
 
-    _my2c2pSDK.ippTransaction = NO;
-    //  _my2c2pSDK.installmentPeriod = [self.installmentperiod.text intValue];
-    //  _my2c2pSDK.interestType = self.interesttype.text;
+    [self setMandatoryFields: params];
+    [self setCardInfoFields: params];
+    [self setInstallmentFields: params];
+    [self setOptionalFields: params];
 
-    [self nilSafeSetBoolPropertyValue: details[@"paymentUI"] forKey: @"paymentUI"];
+    [self sendRequestWithResolver: resolve rejecter: reject];
+}
 
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+RCT_EXPORT_METHOD(requestAlternativePayment: (NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"Request alternative payment params: %@", params);
 
+    [self setMandatoryFields: params];
+    [self setAlternativePaymentFields: params];
+    [self setOptionalFields: params];
+
+    [self sendRequestWithResolver: resolve rejecter: reject];
+}
+
+RCT_EXPORT_METHOD(requestPaymentChannel: (NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    RCTLogInfo(@"Request payment channel payment params: %@", params);
+
+    [self setMandatoryFields: params];
+    [self setPaymentChannelFields: params];
+    [self setOptionalFields: params];
+
+    [self sendRequestWithResolver: resolve rejecter: reject];
+}
+
+- (void)setMandatoryFields: (NSDictionary *)params
+{
+    _my2c2pSDK.merchantID = params[@"merchantID"];
+    _my2c2pSDK.uniqueTransactionCode = params[@"uniqueTransactionCode"];
+    _my2c2pSDK.desc = params[@"desc"];
+    _my2c2pSDK.amount = [params[@"amount"] doubleValue];
+    _my2c2pSDK.currencyCode = params[@"currencyCode"];
+    _my2c2pSDK.secretKey = params[@"secretKey"];
+    [self nilSafeSetBoolPropertyValue: params[@"paymentUI"] forKey: @"paymentUI"];
+}
+
+- (void)setCardInfoFields: (NSDictionary *)params
+{
+    _my2c2pSDK.cardHolderName = params[@"cardHolderName"];
+    _my2c2pSDK.cardHolderEmail = params[@"cardHolderEmail"];
+    _my2c2pSDK.storeCardUniqueID = params[@"storeCardUniqueID"];
+    _my2c2pSDK.pan = params[@"pan"];
+    _my2c2pSDK.cardExpireMonth = [params[@"cardExpireMonth"] intValue];
+    _my2c2pSDK.cardExpireYear = [params[@"cardExpireYear"] intValue];
+    _my2c2pSDK.securityCode = params[@"securityCode"];
+    _my2c2pSDK.panCountry = params[@"panCountry"];
+    _my2c2pSDK.panBank = params[@"panBank"];
+    _my2c2pSDK.request3DS = params[@"request3DS"];
+    _my2c2pSDK.storeCard = params[@"storeCard"];
+}
+
+- (void)setRecurringFields: (NSDictionary *)params
+{
+    _my2c2pSDK.recurring = YES;
+    _my2c2pSDK.invoicePrefix = params[@"invoicePrefix"];
+    _my2c2pSDK.recurringInterval = [params[@"recurringInterval"] intValue];
+    _my2c2pSDK.recurringAmount = [params[@"recurringAmount"] doubleValue];
+    _my2c2pSDK.recurringCount = [params[@"recurringCount"] intValue];
+    [self nilSafeSetBoolPropertyValue: params[@"allowAccumulate"] forKey: @"allowAccumulate"];
+    [self nilSafeSetPropertyValue:params[@"maxAccumulateAmt"] forKey:@"maxAccumulateAmt"];
+    [self nilSafeSetPropertyValue:params[@"chargeNextDate"] forKey:@"chargeNextDate"];
+    [self nilSafeSetPropertyValue:params[@"promotion"] forKey:@"promotion"];
+}
+
+- (void)setInstallmentFields: (NSDictionary *)params
+{
+    _my2c2pSDK.ippTransaction = YES;
+    _my2c2pSDK.installmentPeriod = [params[@"installmentPeriod"] intValue];
+    _my2c2pSDK.interestType = params[@"interestType"];
+}
+
+- (void)setAlternativePaymentFields: (NSDictionary *)params
+{
+    _my2c2pSDK.paymentChannel = [self paymentChannelFromString:params[@"paymentChannel"]];
+    _my2c2pSDK.cardHolderName = params[@"cardHolderName"];
+    _my2c2pSDK.cardHolderEmail = params[@"cardHolderEmail"];
+    _my2c2pSDK.agentCode = params[@"agentCode"];
+    [self nilSafeSetPropertyValue:params[@"channelCode"] forKey:@"channelCode"];
+    [self nilSafeSetPropertyValue:params[@"paymentExpiry"] forKey:@"paymentExpiry"];
+    [self nilSafeSetPropertyValue:params[@"mobileNo"] forKey:@"mobileNo"];
+}
+
+- (void)setPaymentChannelFields: (NSDictionary *)params
+{
+    _my2c2pSDK.paymentChannel = [self paymentChannelFromString:params[@"paymentChannel"]];
+}
+
+- (int)paymentChannelFromString: (NSString *)string
+{
+    NSDictionary *paymentChannelDictionary =
+        @{@"NONE": [NSNumber numberWithInt:NONE],
+          @"MPU": [NSNumber numberWithInt:MPU],
+          @"UPOP": [NSNumber numberWithInt:UPOP],
+          @"ALIPAY": [NSNumber numberWithInt:ALIPAY],
+          @"ONE_TWO_THREE": [NSNumber numberWithInt:ONE_TWO_THREE],
+          @"MASTER_PASS": [NSNumber numberWithInt:MASTER_PASS],
+          @"APPLE_PAY": [NSNumber numberWithInt:APPLE_PAY],
+          @"QWIK": [NSNumber numberWithInt:QWIK],
+          @"LINE_PAY": [NSNumber numberWithInt:LINE_PAY]};
+    return [paymentChannelDictionary[string] intValue];
+}
+
+- (void)setOptionalFields: (NSDictionary *)params
+{
+    [self nilSafeSetPropertyValue: params[@"payCategoryID"] forKey:@"payCategoryID"];
+    [self nilSafeSetPropertyValue: params[@"userDefined1"] forKey:@"userDefined1"];
+    [self nilSafeSetPropertyValue: params[@"userDefined2"] forKey:@"userDefined2"];
+    [self nilSafeSetPropertyValue: params[@"userDefined3"] forKey:@"userDefined3"];
+    [self nilSafeSetPropertyValue: params[@"userDefined4"] forKey:@"userDefined4"];
+    [self nilSafeSetPropertyValue: params[@"userDefined5"] forKey:@"userDefined5"];
+    [self nilSafeSetPropertyValue: params[@"statementDescriptor"] forKey:@"statementDescriptor"];
+}
+
+- (void)sendRequestWithResolver: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject
+{
     // Determine what controller is in the front based on if the app has a navigation controller or a tab bar controller
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     UIViewController* showingController;
     if([window.rootViewController isKindOfClass:[UINavigationController class]]){
 
@@ -97,25 +187,29 @@ RCT_EXPORT_METHOD(requestPayment: (NSDictionary *)details resolver:(RCTPromiseRe
 
          } onFail:^(NSError *error) {
 
-             RCTLogInfo(@"%@",error);
-             reject(@"payment failed", @"The request payment failed", error);
+             if (error) {
+                 RCTLogInfo(@"%@", error);
+                 reject(@"payment error", error.localizedDescription, error);
+             } else {
+                 reject(@"payment error", @"Cancel payment from OTP", error);
+             }
          }];
     });
 }
 
 - (void)nilSafeSetPropertyValue: (NSObject *)value forKey: (NSString *)key
 {
-    if (value) {
+    if (value && ![value isEqual:[NSNull null]]) {
         [_my2c2pSDK setValue: value forKey:key];
     }
 }
 
 - (void)nilSafeSetBoolPropertyValue: (NSObject *)value forKey: (NSString *)key
 {
-    if (value) {
+    if (value && ![value isEqual:[NSNull null]]) {
         [_my2c2pSDK setValue: (NSNumber *)value forKey:key];
     }
 }
 
 @end
-  
+

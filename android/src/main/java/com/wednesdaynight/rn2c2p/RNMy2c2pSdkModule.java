@@ -23,6 +23,7 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
 
   private static final String TAG = "RNMy2c2pSdkModule";
   private static final int REQUEST_SDK = 1;
+  private static final String API_VERSION = "9.1";
   private static final String ACTIVITY_DOES_NOT_EXIST = "ACTIVITY_DOES_NOT_EXIST";
   private static final String PAYMENT_REQUEST_ERROR = "PAYMENT_REQUEST_ERROR";
   private static final String NO_RESPONSE = "NO_RESPONSE";
@@ -103,6 +104,7 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
   public void setup(String privateKey, Boolean productionMode) {
     my2c2pSDK = new My2c2pSDK(privateKey);
     my2c2pSDK.productionMode = productionMode;
+    my2c2pSDK.version = API_VERSION;
   }
 
   @ReactMethod
@@ -186,7 +188,6 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
   }
 
   private void setMandatoryFields(ReadableMap params) {
-    my2c2pSDK.version = "9.1";
     my2c2pSDK.merchantID = params.getString("merchantID");
     my2c2pSDK.uniqueTransactionCode = params.getString("uniqueTransactionCode");
     my2c2pSDK.desc = params.getString("desc");

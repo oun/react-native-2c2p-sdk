@@ -32,7 +32,13 @@ module.exports = {
 };
 
 const defaultPaymentRequest = {
-  request3DS: false,
+  request3DS: 'Y',
   paymentUI: false,
-  storeCard: false
+  storeCard: false,
+  payCategoryID: '',
+  userDefined1: '',
+  userDefined2: '',
+  userDefined3: '',
+  userDefined4: '',
+  userDefined5: ''
 };
