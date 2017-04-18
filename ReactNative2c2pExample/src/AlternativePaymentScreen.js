@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { ScrollView, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import My2c2pSDK from 'react-native-my2c2p-sdk';
 import t, { form } from 'tcomb-form-native';
+import faker from 'faker';
 import config from './config.json';
 
-export default class NonUIPaymentScreen extends Component {
+export default class AlternativePaymentScreen extends Component {
   static navigationOptions = {
-    title: 'Non UI Payment'
+    title: 'Alternative Payment'
   };
 
   componentDidMount() {
@@ -15,31 +16,30 @@ export default class NonUIPaymentScreen extends Component {
 
   initialFormValues() {
     return {
-      merchantID: '614',
-      uniqueTransactionCode: '123456706',
-      desc: 'test product 1',
-      amount: 1299.0,
+      merchantID: config.merchantID,
+      uniqueTransactionCode: faker.random.number({ min: 100000000, max: 999999999 }).toString(),
+      desc: faker.commerce.productName(),
+      amount: 19.0,
       currencyCode: '702',
-      cardHolderName: 'Mr. John',
-      cardHolderEmail: 'john@example.com',
-      pan: '4111111111111111',
-      cardExpireMonth: 2,
-      cardExpireYear: 2019,
-      securityCode: '012',
-      panCountry: 'SG',
-      secretKey: 'u6Y6kxBM7ai2'
+      paymentChannel: 'ONE_TWO_THREE',
+      cardHolderName: faker.name.findName(),
+      cardHolderEmail: faker.internet.email(),
+      agentCode: 'SCB',
+      channelCode: 'ATM',
+      secretKey: config.secretKey
     };
   }
 
   handlePayment = async () => {
     const { navigate } = this.props.navigation;
     try {
-      const response = await My2c2pSDK.requestPayment(this.form.getValue());
+      const params = { ...this.form.getValue(), paymentUI: false };
+      const response = await My2c2pSDK.requestAlternativePayment(params);
       console.log(response);
       navigate('PaymentResult', { result: response });
     } catch(error) {
       console.log(error);
-      navigate('PaymentResult', { result: error });
+      navigate('PaymentResult', { result: error.message });
     }
   }
 
@@ -65,14 +65,18 @@ const payment = t.struct({
   uniqueTransactionCode: t.String,
   desc: t.String,
   amount: t.Number,
-  currencyCode: t.String,
   cardHolderName: t.String,
   cardHolderEmail: t.String,
-  pan: t.String,
-  cardExpireMonth: t.Number,
-  cardExpireYear: t.Number,
-  securityCode: t.String,
-  panCountry: t.String
+  currencyCode: t.String,
+  paymentChannel: t.String,
+  agentCode: t.String,
+  channelCode: t.String,
+  payCategoryID: t.maybe(t.String),
+  userDefined1: t.maybe(t.String),
+  userDefined2: t.maybe(t.String),
+  userDefined3: t.maybe(t.String),
+  userDefined4: t.maybe(t.String),
+  userDefined5: t.maybe(t.String)
 });
 
 const styles = StyleSheet.create({

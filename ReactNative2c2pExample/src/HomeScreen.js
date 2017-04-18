@@ -4,12 +4,24 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 export default function HomeScreen(props) {
   const menuItems = [
     {
-      title: 'Non UI Payment',
+      title: 'Payment Non UI',
       route: 'NonUIPayment'
     },
     {
-      title: 'Payment With UI',
+      title: 'Payment with UI',
       route: 'UIPayment'
+    },
+    {
+      title: 'Recurring Payment',
+      route: 'RecurringPayment'
+    },
+    {
+      title: 'Installment Payment',
+      route: 'InstallmentPayment'
+    },
+    {
+      title: 'Alternative Payment',
+      route: 'AlternativePayment'
     }
   ];
   const { navigate } = props.navigation;

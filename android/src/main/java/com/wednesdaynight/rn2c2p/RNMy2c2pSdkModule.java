@@ -3,8 +3,6 @@ package com.wednesdaynight.rn2c2p;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 import com.ccpp.my2c2psdk.cores.My2c2pResponse;
 import com.facebook.react.bridge.ActivityEventListener;
@@ -26,7 +24,7 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
   private static final String TAG = "RNMy2c2pSdkModule";
   private static final int REQUEST_SDK = 1;
   private static final String ACTIVITY_DOES_NOT_EXIST = "ACTIVITY_DOES_NOT_EXIST";
-  private static final String START_ACTIVITY_ERROR = "START_ACTIVITY_ERROR";
+  private static final String PAYMENT_REQUEST_ERROR = "PAYMENT_REQUEST_ERROR";
   private static final String NO_RESPONSE = "NO_RESPONSE";
 
 
@@ -108,40 +106,175 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void requestPayment(ReadableMap paymentDetails, Promise promise) {
-    this.promise = promise;
-
-    //set mandatory fields
-    my2c2pSDK.version = "9.1";
-    my2c2pSDK.merchantID = paymentDetails.getString("merchantID");
-    my2c2pSDK.uniqueTransactionCode = paymentDetails.getString("uniqueTransactionCode");
-    my2c2pSDK.desc = paymentDetails.getString("desc");
-    my2c2pSDK.amount = paymentDetails.getDouble("amount");
-    my2c2pSDK.currencyCode = paymentDetails.getString("currencyCode");
-    my2c2pSDK.pan = paymentDetails.getString("pan");
-    my2c2pSDK.cardExpireMonth = Integer.toString(paymentDetails.getInt("cardExpireMonth"));
-    my2c2pSDK.cardExpireYear = Integer.toString(paymentDetails.getInt("cardExpireYear"));
-    my2c2pSDK.cardHolderName = paymentDetails.getString("cardHolderName");
-    my2c2pSDK.panCountry = paymentDetails.getString("panCountry");
-    my2c2pSDK.secretKey = paymentDetails.getString("secretKey");
-    my2c2pSDK.paymentUI = paymentDetails.getBoolean("paymentUI");
-
-    //set optional fields
-    my2c2pSDK.securityCode = paymentDetails.getString("securityCode");
-
+  public void requestPayment(ReadableMap params, Promise promise) {
     try {
-      // execute the library using intent
-      Activity currentActivity = getCurrentActivity();
-      if (currentActivity == null) {
-        promise.reject(ACTIVITY_DOES_NOT_EXIST, "Activity doesn't exist");
-        return;
-      }
-      Intent intent = new Intent(currentActivity, My3DSActivity.class);
-      intent.putExtra(My2c2pSDK.PARAMS, my2c2pSDK);
-      currentActivity.startActivityForResult(intent, REQUEST_SDK);
+      this.promise = promise;
+
+      setMandatoryFields(params);
+      setCardInfoFields(params);
+      setOptionalFields(params);
+
+      sendRequest();
     } catch (Exception e) {
-      Log.e(TAG, "Error starting activity", e);
-      promise.reject(START_ACTIVITY_ERROR, e);
+      Log.e(TAG, PAYMENT_REQUEST_ERROR, e);
+      promise.reject(PAYMENT_REQUEST_ERROR, e.getMessage(), e);
     }
+  }
+
+  @ReactMethod
+  public void requestRecurringPayment(ReadableMap params, Promise promise) {
+    try {
+      this.promise = promise;
+
+      setMandatoryFields(params);
+      setCardInfoFields(params);
+      setRecurringFields(params);
+      setOptionalFields(params);
+
+      sendRequest();
+    } catch (Exception e) {
+      Log.e(TAG, PAYMENT_REQUEST_ERROR, e);
+      promise.reject(PAYMENT_REQUEST_ERROR, e.getMessage(), e);
+    }
+  }
+
+  @ReactMethod
+  public void requestInstallmentPayment(ReadableMap params, Promise promise) {
+    try {
+      this.promise = promise;
+
+      setMandatoryFields(params);
+      setCardInfoFields(params);
+      setInstallmentFields(params);
+      setOptionalFields(params);
+
+      sendRequest();
+    } catch (Exception e) {
+      Log.e(TAG, PAYMENT_REQUEST_ERROR, e);
+      promise.reject(PAYMENT_REQUEST_ERROR, e.getMessage(), e);
+    }
+  }
+
+  @ReactMethod
+  public void requestAlternativePayment(ReadableMap params, Promise promise) {
+    try {
+      this.promise = promise;
+
+      setMandatoryFields(params);
+      setAlternativePaymentFields(params);
+      setOptionalFields(params);
+
+      sendRequest();
+    } catch (Exception e) {
+      Log.e(TAG, PAYMENT_REQUEST_ERROR, e);
+      promise.reject(PAYMENT_REQUEST_ERROR, e.getMessage(), e);
+    }
+  }
+
+  @ReactMethod
+  public void requestPaymentChannel(ReadableMap params, Promise promise) {
+    try {
+      this.promise = promise;
+      setMandatoryFields(params);
+      setPaymentChannelFields(params);
+      setOptionalFields(params);
+
+    } catch (Exception e) {
+      Log.e(TAG, PAYMENT_REQUEST_ERROR, e);
+      promise.reject(PAYMENT_REQUEST_ERROR, e.getMessage(), e);
+    }
+  }
+
+  private void setMandatoryFields(ReadableMap params) {
+    my2c2pSDK.version = "9.1";
+    my2c2pSDK.merchantID = params.getString("merchantID");
+    my2c2pSDK.uniqueTransactionCode = params.getString("uniqueTransactionCode");
+    my2c2pSDK.desc = params.getString("desc");
+    my2c2pSDK.amount = params.getDouble("amount");
+    my2c2pSDK.currencyCode = params.getString("currencyCode");
+    my2c2pSDK.secretKey = params.getString("secretKey");
+    my2c2pSDK.paymentUI = params.getBoolean("paymentUI");
+  }
+
+  private void setCardInfoFields(ReadableMap params) {
+    boolean paymentUI = params.getBoolean("paymentUI");
+    // credit card information (optional when payment with UI)
+    if (!paymentUI) {
+      my2c2pSDK.pan = ReadableMapUtil.getString(params, "pan");
+      my2c2pSDK.cardHolderName = ReadableMapUtil.getString(params, "cardHolderName");
+      my2c2pSDK.cardHolderEmail = ReadableMapUtil.getString(params, "cardHolderEmail");
+      my2c2pSDK.panBank = ReadableMapUtil.getString(params, "panBank");
+      my2c2pSDK.panCountry = ReadableMapUtil.getString(params, "panCountry");
+      my2c2pSDK.securityCode = ReadableMapUtil.getString(params, "securityCode");
+      my2c2pSDK.cardExpireMonth = String.format("%02d", ReadableMapUtil.getInt(params, "cardExpireMonth"));
+      my2c2pSDK.cardExpireYear = String.format("%04d", ReadableMapUtil.getInt(params, "cardExpireYear"));
+    }
+    // store card
+    my2c2pSDK.storeCard = ReadableMapUtil.getBoolean(params, "storeCard", false);
+    my2c2pSDK.storedCardUniqueID = ReadableMapUtil.getString(params, "storedCardUniqueID");
+    my2c2pSDK.request3DS = ReadableMapUtil.getString(params, "request3DS");
+  }
+
+  private void setRecurringFields(ReadableMap params) {
+    // mandatory for recurring
+    my2c2pSDK.recurring = true;
+    my2c2pSDK.invoicePrefix = params.getString("invoicePrefix");
+    my2c2pSDK.recurringAmount = params.getDouble("recurringAmount");
+    my2c2pSDK.recurringCount = params.getInt("recurringCount");
+    my2c2pSDK.recurringInterval = params.getInt("recurringInterval");
+    boolean allowAccumulate = ReadableMapUtil.getBoolean(params, "allowAccumulate", false);
+    my2c2pSDK.allowAccumulate = allowAccumulate;
+    if (allowAccumulate) {
+      my2c2pSDK.maxAccumulateAmt = params.getDouble("maxAccumulateAmt");
+    }
+    my2c2pSDK.chargeNextDate = ReadableMapUtil.getString(params, "chargeNextDate");
+    my2c2pSDK.promotion = ReadableMapUtil.getString(params, "promotion");
+    my2c2pSDK.statementDescriptor = ReadableMapUtil.getString(params, "statementDescriptor");
+  }
+
+  private void setInstallmentFields(ReadableMap params) {
+    my2c2pSDK.ippTransaction = true;
+    my2c2pSDK.installmentPeriod = params.getInt("installmentPeriod");
+    my2c2pSDK.interestType = params.getString("interestType");
+  }
+
+  private void setAlternativePaymentFields(ReadableMap params) {
+    My2c2pSDK.PaymentChannel paymentChannel = My2c2pSDK.PaymentChannel.valueOf(params.getString("paymentChannel"));
+    Log.d(TAG, "Payment channel=" + paymentChannel);
+    my2c2pSDK.paymentChannel = paymentChannel;
+    my2c2pSDK.cardHolderName = ReadableMapUtil.getString(params, "cardHolderName");
+    my2c2pSDK.cardHolderEmail = ReadableMapUtil.getString(params, "cardHolderEmail");
+    my2c2pSDK.agentCode = ReadableMapUtil.getString(params, "agentCode");
+    my2c2pSDK.channelCode = ReadableMapUtil.getString(params, "channelCode");
+    my2c2pSDK.paymentExpiry = ReadableMapUtil.getString(params, "paymentExpiry");
+    my2c2pSDK.mobileNo = ReadableMapUtil.getString(params, "mobileNo");
+  }
+
+  private void setPaymentChannelFields(ReadableMap params) {
+    My2c2pSDK.PaymentChannel paymentChannel = My2c2pSDK.PaymentChannel.valueOf(params.getString("paymentChannel"));
+    Log.d(TAG, "Payment channel=" + paymentChannel);
+    my2c2pSDK.paymentChannel = paymentChannel;
+  }
+
+  private void setOptionalFields(ReadableMap params) {
+    my2c2pSDK.payCategoryID = ReadableMapUtil.getString(params, "payCategoryID");
+    my2c2pSDK.userDefined1 = ReadableMapUtil.getString(params, "userDefined1");
+    my2c2pSDK.userDefined2 = ReadableMapUtil.getString(params, "userDefined2");
+    my2c2pSDK.userDefined3 = ReadableMapUtil.getString(params, "userDefined3");
+    my2c2pSDK.userDefined4 = ReadableMapUtil.getString(params, "userDefined4");
+    my2c2pSDK.userDefined5 = ReadableMapUtil.getString(params, "userDefined5");
+    my2c2pSDK.statementDescriptor = ReadableMapUtil.getString(params, "statementDescriptor");
+  }
+
+  private void sendRequest() {
+    // execute the library using intent
+    Activity currentActivity = getCurrentActivity();
+    if (currentActivity == null) {
+      promise.reject(ACTIVITY_DOES_NOT_EXIST, "Activity doesn't exist");
+      return;
+    }
+    Intent intent = new Intent(currentActivity, My3DSActivity.class);
+    intent.putExtra(My2c2pSDK.PARAMS, my2c2pSDK);
+    currentActivity.startActivityForResult(intent, REQUEST_SDK);
   }
 }

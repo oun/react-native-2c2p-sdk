@@ -2,32 +2,38 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import My2c2pSDK from 'react-native-my2c2p-sdk';
 import t, { form } from 'tcomb-form-native';
+import faker from 'faker';
 import config from './config.json';
 
 export default class UIPaymentScreen extends Component {
+  static navigationOptions = {
+    title: 'Payment With UI'
+  };
+
   componentDidMount() {
     My2c2pSDK.init(config.privateKey);
   }
 
   initialFormValues() {
     return {
-      merchantID: '614',
-      uniqueTransactionCode: '123456706',
-      desc: 'test product 1',
-      amount: 1299.0,
+      merchantID: config.merchantID,
+      uniqueTransactionCode: faker.random.number({ min: 100000000, max: 999999999 }).toString(),
+      desc: faker.commerce.productName(),
+      amount: 19.0,
       currencyCode: '702',
-      secretKey: 'u6Y6kxBM7ai2'
+      secretKey: config.secretKey
     };
   }
 
   handleSubmit = async () => {
     const { navigate } = this.props.navigation;
     try {
-      const response = await My2c2pSDK.requestPaymentUI(this.form.getValue());
+      const params = { ...this.form.getValue(), paymentUI: true };
+      const response = await My2c2pSDK.requestPayment(params);
       navigate('PaymentResult', { result: response });
     } catch(error) {
       console.log(error);
-      navigate('PaymentResult', { result: error });
+      navigate('PaymentResult', { result: error.message });
     }
   }
 
@@ -55,7 +61,13 @@ const payment = t.struct({
   uniqueTransactionCode: t.String,
   desc: t.String,
   amount: t.Number,
-  currencyCode: t.String
+  currencyCode: t.String,
+  payCategoryID: t.maybe(t.String),
+  userDefined1: t.maybe(t.String),
+  userDefined2: t.maybe(t.String),
+  userDefined3: t.maybe(t.String),
+  userDefined4: t.maybe(t.String),
+  userDefined5: t.maybe(t.String)
 });
 
 const styles = StyleSheet.create({
