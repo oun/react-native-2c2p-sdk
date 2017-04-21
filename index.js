@@ -1,7 +1,7 @@
 var RNMy2c2pSdk = require('react-native').NativeModules.RNMy2c2pSdk;
 
 module.exports = {
-  init: function(privateKey, production = false) {
+  init: function(privateKey, production) {
     RNMy2c2pSdk.setup(privateKey, production);
   },
 

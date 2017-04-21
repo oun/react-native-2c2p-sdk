@@ -11,7 +11,7 @@ export default class RecurringPaymentScreen extends Component {
   };
 
   componentDidMount() {
-    My2c2pSDK.init(config.privateKey);
+    My2c2pSDK.init(config.privateKey, false);
   }
 
   initialFormValues() {

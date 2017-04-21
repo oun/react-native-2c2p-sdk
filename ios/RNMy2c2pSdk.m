@@ -191,7 +191,7 @@ RCT_EXPORT_METHOD(requestPaymentChannel: (NSDictionary *)params resolver:(RCTPro
                  RCTLogInfo(@"%@", error);
                  reject(@"payment error", error.localizedDescription, error);
              } else {
-                 reject(@"payment error", @"Cancel payment from OTP", error);
+                 reject(@"TRANSACTION_CANCELED", @"Transaction is canceled", error);
              }
          }];
     });

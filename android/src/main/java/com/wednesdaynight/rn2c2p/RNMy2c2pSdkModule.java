@@ -27,7 +27,7 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
   private static final String ACTIVITY_DOES_NOT_EXIST = "ACTIVITY_DOES_NOT_EXIST";
   private static final String PAYMENT_REQUEST_ERROR = "PAYMENT_REQUEST_ERROR";
   private static final String NO_RESPONSE = "NO_RESPONSE";
-
+  private static final String TRANSACTION_CANCELED = "TRANSACTION_CANCELED";
 
   private final ReactApplicationContext reactContext;
   private My2c2pSDK my2c2pSDK;
@@ -44,6 +44,8 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
           if (response != null) {
             if (response.getRespCode().equals("301")) {
               Log.d(TAG, "transaction canceled" + resultCode);
+              promise.reject(TRANSACTION_CANCELED, "Transaction is canceled");
+              return;
             }
             Log.d(TAG, "response" + response.toString());
             WritableMap result = Arguments.createMap();
