@@ -5,6 +5,10 @@
 
 `$ npm install react-native-my2c2p-sdk --save`
 
+or
+
+`$ yarn add react-native-my2c2p-sdk`
+
 ### Automatic Linking
 
 `$ react-native link react-native-my2c2p-sdk`
@@ -30,7 +34,7 @@
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-my2c2p-sdk')
+    compile project(':react-native-my2c2p-sdk')
   	```
 
 ### Setup My2c2pSDK
@@ -42,12 +46,15 @@ Add `pod 'my2c2pSDK'` to the ios/Podfile and run `pod install`.
 
 #### Android
 
-1. Append the following lines to `android/settings.gradle`:
+1. Download My2c2pSDK library from <https://s.2c2p.com/manuals/android/download/my2c2psdk.html>.
+   Convert library to gradle module (See [example](https://github.com/oun/react-native-2c2p-example/tree/master/android/app/my2c2psdk)) 
+   and put into directory: `your-react-native-project/android/app/my2c2psdk`.
+2. Append the following lines to `android/settings.gradle`:
     ```
     include ':my2c2psdk'
-    project(':my2c2psdk').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-my2c2p-sdk/android/my2c2psdk')
+    project(':my2c2psdk').projectDir = new File(rootProject.projectDir, './app/my2c2psdk')
     ```
-2. Add activity to app AndroidManifest.xml
+3. Add activity to app AndroidManifest.xml
     ```
     <activity android:name="com.ccpp.my2c2psdk.cores.My3DSActivity"
             android:theme="@style/My2c2pSDK.Theme"
@@ -111,8 +118,6 @@ try {
 }
 ```
 
-See example app for more details. 
+Example app:
 
-## Example
-
-To run the example app, set your private key, merchant ID and secret key in src/config.json.
+https://github.com/oun/react-native-2c2p-example
