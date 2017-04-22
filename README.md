@@ -54,7 +54,11 @@ Add `pod 'my2c2pSDK'` to the ios/Podfile and run `pod install`.
     include ':my2c2psdk'
     project(':my2c2psdk').projectDir = new File(rootProject.projectDir, './app/my2c2psdk')
     ```
-3. Add activity to app AndroidManifest.xml
+3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+  	```
+    compile project(':my2c2psdk')
+  	```
+4. Add activity to app AndroidManifest.xml
     ```
     <activity android:name="com.ccpp.my2c2psdk.cores.My3DSActivity"
             android:theme="@style/My2c2pSDK.Theme"
