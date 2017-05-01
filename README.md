@@ -1,6 +1,8 @@
 
 # react-native-my2c2p-sdk
 
+A minimal react-native bridge to 2c2p sdk.
+
 ## Installation
 
 `$ npm install react-native-my2c2p-sdk --save`
@@ -38,6 +40,8 @@ or
   	```
 
 ### Setup My2c2pSDK
+
+Follow instruction on 2c2p ([android](https://s.2c2p.com/manuals/android/setupsdk.html), [iOS](https://s.2c2p.com/manuals/ios/setupsdk.html)) to generate private keys. 
 
 #### iOS
 
@@ -91,37 +95,140 @@ Add `pod 'my2c2pSDK'` to the ios/Podfile and run `pod install`.
 
 ## Usage
 ```javascript
+// PaymentScreen.js
+import React, { Component } from 'react';
+import { ScrollView, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import My2c2pSDK from 'react-native-my2c2p-sdk';
+import t, { form } from 'tcomb-form-native';
 
 const privateKey = 'YOUR PRIVATE KEY';
 const merchantID = 'YOUR MERCHANT ID';
 const secretKey = 'YOUR SECRET KEY';
 const productionMode = false;
 
-My2c2pSDK.init(privateKey, productionMode);
-try {
-  const params = {
+export default class PaymentScreen extends Component {
+  componentDidMount() {
+    My2c2pSDK.init(privateKey, productionMode);
+  }
+
+  initialFormValues() {
+    return {
+      paymentUI: false,
       merchantID: merchantID,
       uniqueTransactionCode: '123456789',
-      desc: 'Test',
+      desc: 'Transaction description',
       amount: 19.0,
       currencyCode: '702',
-      cardHolderName: 'Luckyman',
-      cardHolderEmail: 'youremail@domain.com',
+      cardHolderName: 'John Doe',
+      cardHolderEmail: 'john@doe.com',
       pan: '4111111111111111',
       cardExpireMonth: 2,
       cardExpireYear: 2019,
-      securityCode: '012',
+      securityCode: '123',
       panCountry: 'SG',
       secretKey: secretKey
-  };
-  const response = await My2c2pSDK.requestPayment(params);
-  console.log(response);
-} catch(error) {
-  console.log(error);
+    };
+  }
+
+  handlePayment = async () => {
+    try {
+      const response = await My2c2pSDK.requestPayment(this.form.getValue());
+      console.log(response);
+    } catch(error) {
+      if (error.code === 'TRANSACTION_CANCELED') {
+        // transaction is canceled from OTP
+      }
+      console.log(error);
+    }
+  }
+
+  render() {
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <form.Form
+          ref={form => (this.form = form)}
+          type={payment}
+          value={this.initialFormValues()}
+        />
+        <TouchableHighlight onPress={this.handlePayment} style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableHighlight>
+      </ScrollView>
+    );
+  }
 }
+
+const payment = t.struct({
+  paymentUI: t.Boolean,
+  merchantID: t.String,
+  secretKey: t.String,
+  uniqueTransactionCode: t.String,
+  desc: t.String,
+  amount: t.Number,
+  currencyCode: t.String,
+  cardHolderName: t.String,
+  cardHolderEmail: t.String,
+  pan: t.String,
+  cardExpireMonth: t.Number,
+  cardExpireYear: t.Number,
+  securityCode: t.String,
+  panCountry: t.String
+});
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    paddingHorizontal: 10,
+    paddingVertical: 10
+  },
+  submitButton: {
+    paddingVertical: 14,
+    alignItems: 'center',
+    backgroundColor: '#1e88e5'
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18
+  }
+});
 ```
 
-Example app:
+### Credit card payment (Non-UI)
+```javascript
+My2c2pSDK.requestPayment({
+  paymentUI: false,
+  merchantID: merchantID,
+  uniqueTransactionCode: '123456789',
+  desc: 'Transaction description',
+  amount: 19.0,
+  currencyCode: '702',
+  cardHolderName: 'John Doe',
+  cardHolderEmail: 'john@doe.com',
+  pan: '4111111111111111',
+  cardExpireMonth: 2,
+  cardExpireYear: 2019,
+  securityCode: '123',
+  panCountry: 'SG',
+  secretKey: secretKey
+});
+```
+
+### Credit card payment (UI)
+```javascript
+My2c2pSDK.requestPayment({
+  paymentUI: false,
+  merchantID: merchantID,
+  uniqueTransactionCode: '123456789',
+  desc: 'Transaction description',
+  amount: 19.0,
+  currencyCode: '702',
+  secretKey: secretKey
+});
+```
+
+Check the full document for [payment request](https://s.2c2p.com/manuals/android/reference/nonuirequest.html#payment-request)
+and [response](https://s.2c2p.com/manuals/android/reference/my2c2presponse.html)
+
+## Example app:
 
 https://github.com/oun/react-native-2c2p-example
