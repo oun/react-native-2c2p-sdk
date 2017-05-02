@@ -216,7 +216,7 @@ My2c2pSDK.requestPayment({
 ### Credit card payment (UI)
 ```javascript
 My2c2pSDK.requestPayment({
-  paymentUI: false,
+  paymentUI: true,
   merchantID: merchantID,
   uniqueTransactionCode: '123456789',
   desc: 'Transaction description',
