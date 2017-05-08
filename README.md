@@ -95,11 +95,10 @@ Add `pod 'my2c2pSDK'` to the ios/Podfile and run `pod install`.
 
 ## Usage
 ```javascript
-// PaymentScreen.js
 import React, { Component } from 'react';
-import { ScrollView, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import My2c2pSDK from 'react-native-my2c2p-sdk';
-import t, { form } from 'tcomb-form-native';
+import { ScrollView, TouchableHighlight, Text, StyleSheet } from 'react-native';
+...
 
 const privateKey = 'YOUR PRIVATE KEY';
 const merchantID = 'YOUR MERCHANT ID';
@@ -111,28 +110,24 @@ export default class PaymentScreen extends Component {
     My2c2pSDK.init(privateKey, productionMode);
   }
 
-  initialFormValues() {
-    return {
-      paymentUI: false,
-      merchantID: merchantID,
-      uniqueTransactionCode: '123456789',
-      desc: 'Transaction description',
-      amount: 19.0,
-      currencyCode: '702',
-      cardHolderName: 'John Doe',
-      cardHolderEmail: 'john@doe.com',
-      pan: '4111111111111111',
-      cardExpireMonth: 2,
-      cardExpireYear: 2019,
-      securityCode: '123',
-      panCountry: 'SG',
-      secretKey: secretKey
-    };
-  }
-
   handlePayment = async () => {
     try {
-      const response = await My2c2pSDK.requestPayment(this.form.getValue());
+      const response = await My2c2pSDK.requestPayment({
+        paymentUI: false,
+        merchantID: merchantID,
+        uniqueTransactionCode: '123456789',
+        desc: 'Transaction description',
+        amount: 19.0,
+        currencyCode: '702',
+        cardHolderName: 'John Doe',
+        cardHolderEmail: 'john@doe.com',
+        pan: '4111111111111111',
+        cardExpireMonth: 2,
+        cardExpireYear: 2019,
+        securityCode: '123',
+        panCountry: 'SG',
+        secretKey: secretKey
+      });
       console.log(response);
     } catch(error) {
       if (error.code === 'TRANSACTION_CANCELED') {
@@ -144,53 +139,18 @@ export default class PaymentScreen extends Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <form.Form
-          ref={form => (this.form = form)}
-          type={payment}
-          value={this.initialFormValues()}
-        />
-        <TouchableHighlight onPress={this.handlePayment} style={styles.submitButton}>
-          <Text style={styles.submitButtonText}>Submit</Text>
+      <ScrollView>
+        // Form ...
+        <TouchableHighlight onPress={this.handlePayment}>
+          <Text>Submit</Text>
         </TouchableHighlight>
       </ScrollView>
     );
   }
+  
+  ...
 }
 
-const payment = t.struct({
-  paymentUI: t.Boolean,
-  merchantID: t.String,
-  secretKey: t.String,
-  uniqueTransactionCode: t.String,
-  desc: t.String,
-  amount: t.Number,
-  currencyCode: t.String,
-  cardHolderName: t.String,
-  cardHolderEmail: t.String,
-  pan: t.String,
-  cardExpireMonth: t.Number,
-  cardExpireYear: t.Number,
-  securityCode: t.String,
-  panCountry: t.String
-});
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    paddingHorizontal: 10,
-    paddingVertical: 10
-  },
-  submitButton: {
-    paddingVertical: 14,
-    alignItems: 'center',
-    backgroundColor: '#1e88e5'
-  },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 18
-  }
-});
 ```
 
 ### Credit card payment (Non-UI)
