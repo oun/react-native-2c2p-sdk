@@ -12,7 +12,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(setup: (NSString *)privateKey production: (BOOL)productionMode) {
     RCTLogInfo(@"Initialize with params: production=%d", productionMode);
-    _my2c2pSDK = [[my2c2pSDK alloc] initWithPrivateKey:privateKey];
+    _my2c2pSDK = [[My2c2pSDK alloc] initWithPrivateKey:privateKey];
     _my2c2pSDK.version = 9.0;
     _my2c2pSDK.productionMode = productionMode;
 }
@@ -139,8 +139,7 @@ RCT_EXPORT_METHOD(requestPaymentChannel: (NSDictionary *)params resolver:(RCTPro
 - (int)paymentChannelFromString: (NSString *)string
 {
     NSDictionary *paymentChannelDictionary =
-        @{@"NONE": [NSNumber numberWithInt:NONE],
-          @"MPU": [NSNumber numberWithInt:MPU],
+        @{@"MPU": [NSNumber numberWithInt:MPU],
           @"UPOP": [NSNumber numberWithInt:UPOP],
           @"ALIPAY": [NSNumber numberWithInt:ALIPAY],
           @"ONE_TWO_THREE": [NSNumber numberWithInt:ONE_TWO_THREE],
