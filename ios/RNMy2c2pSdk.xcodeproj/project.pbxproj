@@ -198,7 +198,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../../../ios/Pods/my2c2pSDK",
+					"$(PROJECT_DIR)/../../../ios/Pods/my2c2pSDK/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -221,7 +221,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../../../ios/Pods/my2c2pSDK",
+					"$(PROJECT_DIR)/../../../ios/Pods/my2c2pSDK/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
