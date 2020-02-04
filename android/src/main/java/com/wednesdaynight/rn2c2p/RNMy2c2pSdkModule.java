@@ -17,6 +17,7 @@ import com.ccpp.my2c2psdk.cores.My3DSActivity;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 
+import android.os.Bundle;
 import android.util.Log;
 
 public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
@@ -277,6 +278,7 @@ public class RNMy2c2pSdkModule extends ReactContextBaseJavaModule {
       return;
     }
     Intent intent = new Intent(currentActivity, My3DSActivity.class);
+    my2c2pSDK.panBank = "";
     intent.putExtra(My2c2pSDK.PARAMS, my2c2pSDK);
     currentActivity.startActivityForResult(intent, REQUEST_SDK);
   }
